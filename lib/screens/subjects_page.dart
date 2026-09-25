@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'add_subject_page.dart';
+final nomeController = TextEditingController();
+final professorController = TextEditingController();
 
-class SubjectsPage extends StatelessWidget {
+class SubjectsPage extends StatefulWidget {
   const SubjectsPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<SubjectsPage> createState() => _SubjectsPageState();
+}
+
+class _SubjectsPageState extends State<SubjectsPage> {
+  List<Map<String, String>> materias = [];
+
+  @override
+  Widget build(BuildContext context)  {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F3FA),
 
@@ -40,14 +49,23 @@ class SubjectsPage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
-              onPressed: () {
-              Navigator.push(
-              context,
-              MaterialPageRoute(
+             onPressed: () async {
+               final materia = await Navigator.push(
+               context,
+            MaterialPageRoute(
               builder: (context) => const AddSubjectPage(),
               ),
             );
-           },
+
+            if (materia != null) {
+             setState(() {
+             materias.add({
+               'nome': materia['nome'],
+               'professor': materia['professor'],
+               });
+             });
+           }
+         },
                 icon: const Icon(Icons.add),
                 label: const Text('Adicionar matéria'),
               ),
@@ -55,27 +73,27 @@ class SubjectsPage extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            Card(
-              child: ListTile(
-                leading: const Icon(
-                  Icons.calculate,
-                  color: Color(0xFF5E35B1),
-                ),
-                title: const Text('Matemática'),
-                subtitle: const Text('Professor não definido'),
-              ),
-            ),
+          Expanded(
+  child: ListView.builder(
+    itemCount: materias.length,
+    itemBuilder: (context, index) {
+      final materia = materias[index];
 
-            Card(
-              child: ListTile(
-                leading: const Icon(
-                  Icons.science,
-                  color: Color(0xFF5E35B1),
-                ),
-                title: const Text('Química'),
-                subtitle: const Text('Professor não definido'),
-              ),
-            ),
+      return Card(
+        child: ListTile(
+          leading: const Icon(
+            Icons.book,
+            color: Color(0xFF5E35B1),
+          ),
+          title: Text(materia['nome']!),
+          subtitle: Text(
+            'Professor: ${materia['professor']}',
+          ),
+        ),
+      );
+    },
+  ),
+),
           ],
         ),
       ),

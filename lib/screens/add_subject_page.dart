@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+final nomeController = TextEditingController();
+final professorController = TextEditingController();
 
-class AddSubjectPage extends StatelessWidget {
+class AddSubjectPage extends StatefulWidget {
   const AddSubjectPage({super.key});
 
   @override
+  State<AddSubjectPage> createState() => _AddSubjectPageState();
+}
+
+class _AddSubjectPageState extends State<AddSubjectPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F3FA),
@@ -31,17 +37,19 @@ class AddSubjectPage extends StatelessWidget {
             const SizedBox(height: 30),
 
             TextField(
-              decoration: InputDecoration(
-                labelText: 'Nome da matéria',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                controller: nomeController,
+                decoration: InputDecoration(
+                 labelText: 'Nome da matéria',
+                 border: OutlineInputBorder(
+                   borderRadius: BorderRadius.circular(12),
+                 ),
               ),
             ),
 
             const SizedBox(height: 15),
 
             TextField(
+              controller: professorController,    
               decoration: InputDecoration(
                 labelText: 'Professor',
                 border: OutlineInputBorder(
@@ -55,7 +63,15 @@ class AddSubjectPage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+               onPressed: () {
+           Navigator.pop(
+              context,
+           {
+               'nome': nomeController.text,
+               'professor': professorController.text,
+               },
+             );
+           },
                 child: const Text('Cadastrar matéria'),
               ),
             ),
