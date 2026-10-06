@@ -79,18 +79,53 @@ class _SubjectsPageState extends State<SubjectsPage> {
     itemBuilder: (context, index) {
       final materia = materias[index];
 
-      return Card(
-        child: ListTile(
-          leading: const Icon(
-            Icons.book,
-            color: Color(0xFF5E35B1),
-          ),
-          title: Text(materia['nome']!),
-          subtitle: Text(
-            'Professor: ${materia['professor']}',
-          ),
-        ),
-      );
+     return Card(
+  child: ListTile(
+    leading: const Icon(
+      Icons.book,
+      color: Color(0xFF5E35B1),
+    ),
+    title: Text(materia['nome']!),
+    subtitle: Text(
+      'Professor: ${materia['professor']}',
+    ),
+   trailing: Row(
+  mainAxisSize: MainAxisSize.min,
+  children: [
+    IconButton(
+      icon: const Icon(Icons.edit),
+      onPressed: () async {
+  final materiaEditada = await Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => AddSubjectPage(
+        materia: materia,
+      ),
+    ),
+  );
+
+  if (materiaEditada != null) {
+    setState(() {
+      materias[index] = {
+        'nome': materiaEditada['nome'],
+        'professor': materiaEditada['professor'],
+      };
+    });
+  }
+}
+    ),
+    IconButton(
+      icon: const Icon(Icons.delete),
+      onPressed: () {
+        setState(() {
+          materias.removeAt(index);
+        });
+      },
+    ),
+  ],
+),
+  ),
+);
     },
   ),
 ),

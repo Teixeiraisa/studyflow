@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'screens/login_page.dart';
-import 'screens/cadastro_page.dart';
 
 void main() {
   runApp(const StudyFlow());
