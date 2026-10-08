@@ -21,10 +21,16 @@ class _AddSubjectPageState extends State<AddSubjectPage> {
 void initState() {
   super.initState();
 
-  if (widget.materia != null) {
-    nomeController.text = widget.materia!['nome']!;
-    professorController.text = widget.materia!['professor']!;
-  }
+ if (widget.materia != null) {
+  nomeController.text = widget.materia!['nome']!;
+  professorController.text = widget.materia!['professor']!;
+
+  corSelecionada = Color(
+    int.parse(
+      widget.materia!['cor'] ?? '0xFF5E35B1',
+    ),
+  );
+}
 }
 
 Widget _botaoCor(Color cor) {
@@ -146,13 +152,14 @@ const SizedBox(height: 25),
     return;
   }
 
-  Navigator.pop(
-    context,
-    {
-      'nome': nomeController.text.trim(),
-      'professor': professorController.text.trim(),
-    },
-  );
+ Navigator.pop(
+  context,
+  {
+    'nome': nomeController.text.trim(),
+    'professor': professorController.text.trim(),
+    'cor': corSelecionada.value.toString(),
+  },
+);
 },
                 child: Text(
                  widget.materia == null

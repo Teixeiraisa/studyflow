@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'add_subject_page.dart';
-final nomeController = TextEditingController();
-final professorController = TextEditingController();
 
 class SubjectsPage extends StatefulWidget {
   const SubjectsPage({super.key});
@@ -14,7 +12,7 @@ class _SubjectsPageState extends State<SubjectsPage> {
   List<Map<String, String>> materias = [];
 
   @override
-  Widget build(BuildContext context)  {
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F3FA),
 
@@ -49,23 +47,24 @@ class _SubjectsPageState extends State<SubjectsPage> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
-             onPressed: () async {
-               final materia = await Navigator.push(
-               context,
-            MaterialPageRoute(
-              builder: (context) => const AddSubjectPage(),
-              ),
-            );
+                onPressed: () async {
+                  final materia = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AddSubjectPage(),
+                    ),
+                  );
 
-            if (materia != null) {
-             setState(() {
-             materias.add({
-               'nome': materia['nome'],
-               'professor': materia['professor'],
-               });
-             });
-           }
-         },
+                  if (materia != null) {
+                    setState(() {
+                      materias.add({
+                        'nome': materia['nome'],
+                        'professor': materia['professor'],
+                        'cor': materia['cor'] ?? '0xFF5E35B1',
+                      });
+                    });
+                  }
+                },
                 icon: const Icon(Icons.add),
                 label: const Text('Adicionar matéria'),
               ),
@@ -73,62 +72,79 @@ class _SubjectsPageState extends State<SubjectsPage> {
 
             const SizedBox(height: 20),
 
-          Expanded(
-  child: ListView.builder(
-    itemCount: materias.length,
-    itemBuilder: (context, index) {
-      final materia = materias[index];
+            Expanded(
+              child: ListView.builder(
+                itemCount: materias.length,
+                itemBuilder: (context, index) {
+                  final materia = materias[index];
 
-     return Card(
-  child: ListTile(
-    leading: const Icon(
-      Icons.book,
-      color: Color(0xFF5E35B1),
-    ),
-    title: Text(materia['nome']!),
-    subtitle: Text(
-      'Professor: ${materia['professor']}',
-    ),
-   trailing: Row(
-  mainAxisSize: MainAxisSize.min,
-  children: [
-    IconButton(
-      icon: const Icon(Icons.edit),
-      onPressed: () async {
-  final materiaEditada = await Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => AddSubjectPage(
-        materia: materia,
-      ),
-    ),
-  );
+                  return Card(
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.book,
+                        color: Color(
+                          int.parse(
+                            materia['cor'] ?? '0xFF5E35B1',
+                          ),
+                        ),
+                      ),
 
-  if (materiaEditada != null) {
-    setState(() {
-      materias[index] = {
-        'nome': materiaEditada['nome'],
-        'professor': materiaEditada['professor'],
-      };
-    });
-  }
-}
-    ),
-    IconButton(
-      icon: const Icon(Icons.delete),
-      onPressed: () {
-        setState(() {
-          materias.removeAt(index);
-        });
-      },
-    ),
-  ],
-),
-  ),
-);
-    },
-  ),
-),
+                      title: Text(
+                        materia['nome'] ?? '',
+                      ),
+
+                      subtitle: Text(
+                        'Professor: ${materia['professor'] ?? ''}',
+                      ),
+
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // EDITAR
+                          IconButton(
+                            icon: const Icon(Icons.edit),
+                            onPressed: () async {
+                              final materiaEditada =
+                                  await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      AddSubjectPage(
+                                    materia: materia,
+                                  ),
+                                ),
+                              );
+
+                              if (materiaEditada != null) {
+                                setState(() {
+                                  materias[index] = {
+                                    'nome': materiaEditada['nome'],
+                                    'professor':
+                                        materiaEditada['professor'],
+                                    'cor': materiaEditada['cor'] ??
+                                        '0xFF5E35B1',
+                                  };
+                                });
+                              }
+                            },
+                          ),
+
+                          // EXCLUIR
+                          IconButton(
+                            icon: const Icon(Icons.delete),
+                            onPressed: () {
+                              setState(() {
+                                materias.removeAt(index);
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
