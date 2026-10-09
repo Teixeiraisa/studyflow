@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import '../services/study_data.dart';
 import 'add_task_page.dart';
 
 class TasksPage extends StatefulWidget {
@@ -9,22 +11,19 @@ class TasksPage extends StatefulWidget {
 }
 
 class _TasksPageState extends State<TasksPage> {
-  List<Map<String, String>> tarefas = [];
+  List<Map<String, String>> get tarefas => StudyData.tarefas;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F3FA),
-
       appBar: AppBar(
         title: const Text('Minhas tarefas'),
         backgroundColor: const Color(0xFF5E35B1),
         foregroundColor: Colors.white,
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(20),
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -35,34 +34,24 @@ class _TasksPageState extends State<TasksPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-
             const SizedBox(height: 10),
-
-            const Text(
-              'Acompanhe suas atividades e provas.',
-            ),
-
+            const Text('Acompanhe suas atividades e provas.'),
             const SizedBox(height: 25),
 
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
                 onPressed: () async {
-                  final tarefa = await Navigator.push(
+                  final tarefa = await Navigator.push<Map<String, String>>(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const AddTaskPage(),
                     ),
                   );
 
-                  if (tarefa != null) {
+                  if (tarefa != null && mounted) {
                     setState(() {
-                      tarefas.add({
-                        'nome': tarefa['nome'],
-                        'materia': tarefa['materia'],
-                        'tipo': tarefa['tipo'],
-                        'data': tarefa['data'],
-                      });
+                      tarefas.add(Map<String, String>.from(tarefa));
                     });
                   }
                 },
@@ -92,49 +81,37 @@ class _TasksPageState extends State<TasksPage> {
                               Icons.assignment,
                               color: Color(0xFF5E35B1),
                             ),
-
-                            title: Text(
-                              tarefa['nome']!,
-                            ),
-
+                            title: Text(tarefa['nome'] ?? ''),
                             subtitle: Text(
-                              'Matéria: ${tarefa['materia']}\n'
-                              'Tipo: ${tarefa['tipo']}\n'
-                              'Data: ${tarefa['data']}',
+                              'Matéria: ${tarefa['materia'] ?? ''}\n'
+                              'Tipo: ${tarefa['tipo'] ?? ''}\n'
+                              'Data: ${tarefa['data'] ?? ''}',
                             ),
-
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                // EDITAR
                                 IconButton(
                                   icon: const Icon(Icons.edit),
                                   onPressed: () async {
                                     final tarefaEditada =
-                                        await Navigator.push(
+                                        await Navigator.push<Map<String, String>>(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => AddTaskPage(
-                                          tarefa: tarefa,
-                                        ),
+                                        builder: (context) =>
+                                            AddTaskPage(tarefa: tarefa),
                                       ),
                                     );
 
-                                    if (tarefaEditada != null) {
+                                    if (tarefaEditada != null && mounted) {
                                       setState(() {
-                                        tarefas[index] = {
-                                          'nome': tarefaEditada['nome'],
-                                          'materia':
-                                              tarefaEditada['materia'],
-                                          'tipo': tarefaEditada['tipo'],
-                                          'data': tarefaEditada['data'],
-                                        };
+                                        tarefas[index] =
+                                            Map<String, String>.from(
+                                          tarefaEditada,
+                                        );
                                       });
                                     }
                                   },
                                 ),
-
-                                // EXCLUIR
                                 IconButton(
                                   icon: const Icon(Icons.delete),
                                   onPressed: () {
@@ -142,11 +119,9 @@ class _TasksPageState extends State<TasksPage> {
                                       tarefas.removeAt(index);
                                     });
 
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(
+                                    ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                        content:
-                                            Text('Tarefa excluída.'),
+                                        content: Text('Tarefa excluída.'),
                                       ),
                                     );
                                   },

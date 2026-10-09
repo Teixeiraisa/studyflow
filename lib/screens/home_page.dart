@@ -1,6 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'subjects_page.dart';
 import 'tasks_page.dart';
+import 'calendar_page.dart';
+import '../services/study_data.dart';
+import 'agenda_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -16,12 +20,10 @@ class HomePage extends StatelessWidget {
         foregroundColor: Colors.white,
       ),
 
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-
           children: [
             const Text(
               'Olá! 👋',
@@ -35,9 +37,7 @@ class HomePage extends StatelessWidget {
 
             const Text(
               'Organize seus estudos e acompanhe seu progresso.',
-              style: TextStyle(
-                fontSize: 16,
-              ),
+              style: TextStyle(fontSize: 16),
             ),
 
             const SizedBox(height: 30),
@@ -124,38 +124,77 @@ class HomePage extends StatelessWidget {
               value: 0,
               minHeight: 10,
             ),
+
             const SizedBox(height: 25),
 
-          SizedBox(
-          width: double.infinity,
-          child: ElevatedButton.icon(
-          onPressed: () {
-          Navigator.push(
-          context,
-          MaterialPageRoute(
-               builder: (context) => const SubjectsPage(),
-        ),
-      );
-    },
-         icon: const Icon(Icons.book),
-        label: const Text('Ver minhas matérias'),
-  ),
-),
-      const SizedBox(height: 15),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SubjectsPage(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.book),
+                label: const Text('Ver minhas matérias'),
+              ),
+            ),
 
-        SizedBox(
-        width: double.infinity,
-        child: ElevatedButton.icon(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-             builder: (context) => const TasksPage(),
+            const SizedBox(height: 15),
+
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TasksPage(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.assignment),
+                label: const Text('Ver minhas tarefas'),
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CalendarPage(
+                       tarefas: StudyData.tarefas,
+                      )
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.calendar_month),
+                label: const Text('Meu calendário'),
+              ),
+            ),
+            const SizedBox(height: 15),
+
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                 Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                   builder: (context) => const AgendaPage(),
         ),
       );
     },
-        icon: const Icon(Icons.assignment),
-        label: const Text('Ver minhas tarefas'),
+    icon: const Icon(Icons.event_note),
+    label: const Text('Minha agenda de estudos'),
   ),
 ),
           ],
