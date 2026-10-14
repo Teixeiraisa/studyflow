@@ -1,7 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'cadastro_page.dart';
-import 'home_page.dart';
-
+import 'main_navigation.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -12,12 +12,10 @@ class LoginPage extends StatelessWidget {
       backgroundColor: const Color(0xFFF5F3FA),
 
       body: Center(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(25),
-
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-
             children: [
               const Text(
                 'StudyFlow',
@@ -38,8 +36,10 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 40),
 
               TextField(
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   labelText: 'E-mail',
+                  prefixIcon: const Icon(Icons.email_outlined),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -52,6 +52,7 @@ class LoginPage extends StatelessWidget {
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Senha',
+                  prefixIcon: const Icon(Icons.lock_outline),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -60,34 +61,49 @@ class LoginPage extends StatelessWidget {
 
               const SizedBox(height: 25),
 
-           SizedBox(
-  width: double.infinity,
-  child: ElevatedButton(
-    onPressed: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomePage(),
-        ),
-      );
-    },
-    child: const Text('Entrar'),
-  ),
-),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF5E35B1),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MainNavigation(),
+                      ),
+                    );
+                  },
+
+                  child: const Text('Entrar'),
+                ),
+              ),
 
               const SizedBox(height: 10),
 
-             TextButton(
-              onPressed: () {
-             Navigator.push(
-              context,
-             MaterialPageRoute(
-              builder: (context) => const CadastroPage(),
-      ),
-    );
-  },
-  child: const Text('Criar uma conta'),
-),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CadastroPage(),
+                    ),
+                  );
+                },
+                child: const Text(
+                  'Criar uma conta',
+                  style: TextStyle(
+                    color: Color(0xFF5E35B1),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
