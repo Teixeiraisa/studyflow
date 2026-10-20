@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'firebase_options.dart';
 import 'screens/login_page.dart';
@@ -9,12 +10,12 @@ Future<void> main() async {
   // Prepara o Flutter antes de inicializar o Firebase.
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Conecta o aplicativo ao projeto Firebase.
+  // Conecta o aplicativo ao Firebase.
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Inicia o aplicativo depois da conexão.
+  // Inicia o aplicativo.
   runApp(const StudyFlow());
 }
 
@@ -27,7 +28,14 @@ class StudyFlow extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'StudyFlow',
 
-      // Mantém o tema original do aplicativo.
+      // Configuração do idioma português.
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      supportedLocales: const [
+        Locale('pt', 'BR'),
+        Locale('en', 'US'),
+      ],
+
+      // Mantém o tema original.
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
@@ -45,7 +53,7 @@ class StudyFlow extends StatelessWidget {
         ),
       ),
 
-      // Mantém a tela de login como página inicial.
+      // Mantém o login como página inicial.
       home: const LoginPage(),
     );
   }

@@ -6,7 +6,6 @@ import 'subjects_page.dart';
 import 'tasks_page.dart';
 import 'calendar_page.dart';
 import 'agenda_page.dart';
-import '../services/study_data.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -30,7 +29,7 @@ class _MainNavigationState extends State<MainNavigation> {
       HomePage(onNavigate: mudarPagina),
       const SubjectsPage(),
       const TasksPage(),
-      CalendarPage(tarefas: StudyData.tarefas),
+      const CalendarPage(tarefas: []),
       const AgendaPage(),
     ];
 
@@ -39,15 +38,13 @@ class _MainNavigationState extends State<MainNavigation> {
         index: paginaSelecionada,
         children: paginas,
       ),
-
       bottomNavigationBar: NavigationBar(
         backgroundColor: Colors.white,
         indicatorColor: const Color(0xFFEDE7F6),
         selectedIndex: paginaSelecionada,
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-
+        labelBehavior:
+            NavigationDestinationLabelBehavior.alwaysShow,
         onDestinationSelected: mudarPagina,
-
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.home_outlined),
