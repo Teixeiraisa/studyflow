@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manual técnico do aplicativo StudyFlow.">
+  <title>Manual técnico | StudyFlow</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero" id="inicio">
+    <nav class="nav">
+      <a class="marca" href="#inicio">StudyFlow</a>
+      <div class="links">
+        <a href="#apresentacao">Projeto</a>
+        <a href="#instalacao">Instalação</a>
+        <a href="#estrutura">Código</a>
+        <a href="#manutencao">Manutenção</a>
+      </div>
+    </nav>
+    <div class="hero-conteudo">
+      <div class="logo-area">
+        <!-- Coloque a logo em manual/imagens/logo_studyflow.png -->
+        <img src="imagens/logo_studyflow.png" alt="Logo StudyFlow"
+             onerror="this.style.display='none'">
+        <span class="logo-fallback">SF</span>
+      </div>
+      <p class="etiqueta">MANUAL TÉCNICO</p>
+      <h1>StudyFlow</h1>
+      <p class="subtitulo">Guia de instalação, utilização e manutenção do aplicativo.</p>
+      <a class="botao" href="#apresentacao">Conhecer o projeto</a>
+    </div>
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+  </header>
+
+  <main>
+    <section class="secao" id="apresentacao">
+      <p class="etiqueta">01 · VISÃO GERAL</p>
+      <h2>Apresentação do aplicativo</h2>
+      <p>O StudyFlow é um aplicativo de organização acadêmica desenvolvido com Flutter e Dart. Seu objetivo é ajudar estudantes a reunir matérias, tarefas, provas e compromissos de estudo em um só lugar.</p>
+      <div class="cartoes">
+        <article class="cartao"><span class="icone">▤</span><h3>Matérias</h3><p>Cadastro de disciplinas e informações dos professores.</p></article>
+        <article class="cartao"><span class="icone">✓</span><h3>Tarefas</h3><p>Registro, consulta, edição e exclusão de atividades.</p></article>
+        <article class="cartao"><span class="icone">▦</span><h3>Calendário e agenda</h3><p>Visualização de datas e planejamento de estudos.</p></article>
+      </div>
+      <div class="nota"><strong>Público-alvo:</strong> estudantes que desejam organizar suas atividades e acompanhar seus prazos escolares.</div>
+    </section>
+
+    <section class="secao" id="tecnologias">
+      <p class="etiqueta">02 · FERRAMENTAS</p>
+      <h2>Tecnologias utilizadas</h2>
+      <div class="tabela-responsiva">
+        <table>
+          <thead><tr><th>Tecnologia</th><th>Finalidade</th></tr></thead>
+          <tbody>
+            <tr><td>Flutter</td><td>Construção da interface do aplicativo.</td></tr>
+            <tr><td>Dart</td><td>Linguagem usada para implementar a lógica.</td></tr>
+            <tr><td>Firebase Authentication</td><td>Cadastro e autenticação de usuários.</td></tr>
+            <tr><td>Cloud Firestore</td><td>Armazenamento de dados na nuvem.</td></tr>
+            <tr><td>HTML e CSS</td><td>Construção desta documentação técnica.</td></tr>
+            <tr><td>Git e GitHub</td><td>Versionamento e hospedagem do código-fonte.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="secao" id="instalacao">
+      <p class="etiqueta">03 · COMEÇAR</p>
+      <h2>Requisitos e instalação</h2>
+      <h3>Requisitos</h3>
+      <ul>
+        <li>Flutter SDK instalado e configurado.</li>
+        <li>Dart, incluído na instalação do Flutter.</li>
+        <li>Visual Studio Code ou Android Studio.</li>
+        <li>Git instalado para clonar o repositório.</li>
+        <li>Acesso à internet para usar os serviços do Firebase.</li>
+        <li>Configuração Firebase válida incluída no projeto.</li>
+      </ul>
+      <h3>Passo a passo</h3>
+      <ol class="passos">
+        <li><strong>Obter o projeto.</strong><p>Clone o repositório do GitHub ou baixe seus arquivos e abra a pasta principal no editor.</p></li>
+        <li><strong>Instalar as dependências.</strong><p>Abra o terminal na raiz do projeto e execute:</p><code>flutter pub get</code></li>
+        <li><strong>Verificar a configuração.</strong><p>Confira se os arquivos de configuração do Firebase correspondem ao projeto utilizado.</p></li>
+        <li><strong>Executar o aplicativo.</strong><p>Com um emulador ou dispositivo conectado, execute:</p><code>flutter run</code></li>
+      </ol>
+      <div class="nota aviso"><strong>Importante:</strong> os comandos devem ser executados na pasta que contém o arquivo <code>pubspec.yaml</code>. Para compilar para uma plataforma específica, ela precisa estar configurada no ambiente Flutter.</div>
+    </section>
+
+    <section class="secao" id="telas">
+      <p class="etiqueta">04 · INTERFACE</p>
+      <h2>Principais telas</h2>
+      <div class="lista-telas">
+        <article><span>01</span><div><h3>Login</h3><p>Recebe e-mail e senha, valida os campos e utiliza o Firebase Authentication. O acesso ao app exige confirmação do e-mail.</p><code>lib/screens/login_page.dart</code></div></article>
+        <article><span>02</span><div><h3>Cadastro</h3><p>Cria uma conta de usuário e registra os dados básicos do perfil no Firestore.</p><code>lib/screens/cadastro_page.dart</code></div></article>
+        <article><span>03</span><div><h3>Início</h3><p>Apresenta um resumo e atalhos para as funções principais.</p><code>lib/screens/home_page.dart</code></div></article>
+        <article><span>04</span><div><h3>Matérias</h3><p>Permite gerenciar disciplinas e informações associadas.</p><code>lib/screens/subjects_page.dart</code></div></article>
+        <article><span>05</span><div><h3>Tarefas</h3><p>Permite registrar atividades, datas, tipo e estado de conclusão.</p><code>lib/screens/tasks_page.dart</code></div></article>
+        <article><span>06</span><div><h3>Calendário e agenda</h3><p>Organizam prazos e compromissos por data.</p><code>lib/screens/calendar_page.dart</code><br><code>lib/screens/agenda_page.dart</code></div></article>
+      </div>
+      <p class="texto-menor">Os nomes e caminhos acima correspondem à estrutura atualmente utilizada no projeto e devem ser atualizados caso os arquivos sejam renomeados.</p>
+    </section>
+
+    <section class="secao" id="estrutura">
+      <p class="etiqueta">05 · ORGANIZAÇÃO</p>
+      <h2>Estrutura de pastas</h2>
+      <pre class="arvore">studyflow/
+├── assets/
+│   └── logo_studyflow.png
+├── lib/
+│   ├── screens/
+│   │   ├── login_page.dart
+│   │   ├── cadastro_page.dart
+│   │   ├── main_navigation.dart
+│   │   ├── home_page.dart
+│   │   ├── subjects_page.dart
+│   │   ├── add_subject_page.dart
+│   │   ├── tasks_page.dart
+│   │   ├── add_task_page.dart
+│   │   ├── calendar_page.dart
+│   │   └── agenda_page.dart
+│   ├── services/
+│   │   └── study_data.dart
+│   ├── firebase_options.dart
+│   └── main.dart
+├── manual/
+│   ├── index.html
+│   ├── style.css
+│   └── imagens/
+├── pubspec.yaml
+└── README.md</pre>
+      <p class="texto-menor">A árvore é uma referência baseada nos arquivos conhecidos do projeto. Confira a pasta real antes da entrega e acrescente ou remova itens para que a documentação corresponda exatamente ao repositório.</p>
+      <h3>Arquivo de entrada</h3>
+      <p>O arquivo <code>lib/main.dart</code> inicializa o Flutter e o Firebase e abre a tela de login. A navegação entre as seções é organizada em <code>lib/screens/main_navigation.dart</code>.</p>
+      <h3>Serviço de dados</h3>
+      <p>O arquivo <code>lib/services/study_data.dart</code> reúne referências às coleções do Firestore usadas para salvar matérias e tarefas por usuário.</p>
+    </section>
+
+    <section class="secao" id="firebase">
+      <p class="etiqueta">06 · PERSISTÊNCIA</p>
+      <h2>Autenticação e banco de dados</h2>
+      <p>O Firebase Authentication gerencia as contas e a entrada dos usuários. O Cloud Firestore armazena os registros de cada usuário, permitindo que os dados persistam entre execuções.</p>
+      <h3>Estrutura de dados</h3>
+      <pre class="arvore">users/
+└── {uid}/
+    ├── nome
+    ├── email
+    ├── subjects/
+    │   └── {subjectId}
+    │       ├── nome
+    │       ├── professor
+    │       └── cor
+    └── tasks/
+        └── {taskId}
+            ├── nome
+            ├── materia
+            ├── tipo
+            ├── data
+            └── concluida</pre>
+      <p class="texto-menor">Os campos acima refletem os registros usados nas telas de matérias e tarefas. Verifique no Firebase Console os campos efetivamente gravados antes de alterar este esquema. A agenda pode usar uma coleção adicional, conforme a implementação final.</p>
+      <div class="nota aviso"><strong>Segurança:</strong> as regras do Firestore devem restringir a leitura e a escrita aos dados do usuário autenticado. Nunca publique senhas, tokens privados ou chaves secretas no manual ou no repositório.</div>
+    </section>
+
+    <section class="secao" id="crud">
+      <p class="etiqueta">07 · OPERAÇÕES</p>
+      <h2>Como gerenciar informações</h2>
+      <div class="cartoes">
+        <article class="cartao"><span class="numero">C</span><h3>Cadastrar</h3><p>Abra a seção desejada, escolha a opção de adicionar, preencha os campos e salve.</p></article>
+        <article class="cartao"><span class="numero">L</span><h3>Consultar</h3><p>Os registros salvos são apresentados na lista correspondente.</p></article>
+        <article class="cartao"><span class="numero">E</span><h3>Editar</h3><p>Selecione a opção de edição do registro, altere os dados e salve as mudanças.</p></article>
+        <article class="cartao"><span class="numero">X</span><h3>Excluir</h3><p>Use a opção de exclusão do registro e confirme, se a tela solicitar.</p></article>
+      </div>
+      <p>Essas operações correspondem ao CRUD: Create, Read, Update e Delete. Antes da entrega, teste cada operação com dados de exemplo e confirme se as alterações aparecem no Firestore.</p>
+    </section>
+
+    <section class="secao" id="manutencao">
+      <p class="etiqueta">08 · MANUTENÇÃO</p>
+      <h2>Como alterar o projeto</h2>
+      <details open><summary>Alterar as cores</summary><p>Procure as cores definidas em <code>ThemeData</code> no arquivo <code>lib/main.dart</code> e as cores específicas nas telas. A cor roxa principal utilizada atualmente é <code>Color(0xFF5E35B1)</code> e o fundo é <code>Color(0xFFF5F3FA)</code>. Ao alterar a paleta, confira botões, ícones, campos e textos para manter contraste e consistência.</p></details>
+      <details><summary>Trocar a logo</summary><p>Substitua o arquivo <code>assets/logo_studyflow.png</code> mantendo o mesmo nome e formato, ou altere o caminho no <code>Image.asset</code> da tela de login e na declaração de assets do <code>pubspec.yaml</code>. Depois execute <code>flutter pub get</code> e reinicie o app.</p></details>
+      <details><summary>Alterar o nome do aplicativo</summary><p>O texto exibido na interface pode ser alterado nos arquivos de tela, como <code>login_page.dart</code> e <code>main_navigation.dart</code>. O nome exibido no dispositivo também pode depender das configurações específicas de Android ou iOS.</p></details>
+      <details><summary>Adicionar ou alterar uma tela</summary><p>Crie um arquivo Dart em <code>lib/screens/</code>, implemente a tela com Flutter e importe o arquivo onde a navegação é definida, atualmente <code>main_navigation.dart</code>. Conecte os botões e teste a navegação em diferentes tamanhos de tela.</p></details>
+      <details><summary>Adicionar um campo ao banco</summary><p>Localize o formulário que cadastra o registro e inclua o novo campo. Depois, atualize a gravação no Firestore e todas as telas que leem ou editam esse registro. Se o campo precisar de validação, adicione-a ao formulário. Teste registros novos e antigos, pois os registros antigos podem não possuir o novo campo.</p></details>
+      <details><summary>Gerar uma nova versão</summary><p>Execute os testes e verifique o projeto com <code>flutter analyze</code>. Para gerar uma versão Android em formato APK, execute <code>flutter build apk</code>. O arquivo de saída costuma ficar em <code>build/app/outputs/flutter-apk/</code>. A distribuição e assinatura de uma versão final podem exigir configuração adicional.</p></details>
+    </section>
+
+    <section class="secao" id="problemas">
+      <p class="etiqueta">09 · SUPORTE</p>
+      <h2>Solução de problemas comuns</h2>
+      <div class="problema"><h3>O pacote ou asset não é encontrado</h3><p>Confira o caminho e a indentação do <code>pubspec.yaml</code>, salve o arquivo e execute <code>flutter pub get</code>.</p></div>
+      <div class="problema"><h3>O login não funciona</h3><p>Confira a conexão com a internet, as credenciais, a confirmação do e-mail e se o provedor E-mail/Senha está habilitado no Firebase Authentication.</p></div>
+      <div class="problema"><h3>Os dados não aparecem</h3><p>Confirme se o usuário está autenticado, se a coleção e os campos correspondem ao código e se as regras do Firestore permitem a operação.</p></div>
+      <div class="problema"><h3>O seletor de data apresenta erro de localização</h3><p>Confira as configurações de localização no <code>MaterialApp</code> em <code>main.dart</code> e as dependências de localização do Flutter. As telas que usam datas também precisam respeitar essas configurações.</p></div>
+      <div class="problema"><h3>O aplicativo não inicia</h3><p>Leia a primeira mensagem de erro do terminal, execute <code>flutter pub get</code> e verifique se o emulador ou dispositivo está disponível.</p></div>
+    </section>
+
+    <section class="secao final" id="checklist">
+      <p class="etiqueta">10 · ANTES DE ENTREGAR</p>
+      <h2>Checklist final</h2>
+      <ul class="checklist">
+        <li>Aplicativo inicia sem erros.</li>
+        <li>Cadastro, confirmação de e-mail e login foram testados.</li>
+        <li>Matérias e tarefas podem ser criadas, consultadas, editadas e excluídas.</li>
+        <li>Datas e compromissos aparecem corretamente no calendário e na agenda.</li>
+        <li>Dados de usuários diferentes ficam separados.</li>
+        <li>Logo e identidade visual estão aplicadas.</li>
+        <li>Estrutura de pastas e nomes de arquivos conferem com o projeto real.</li>
+        <li>Manual e README foram revisados.</li>
+        <li>Capturas de tela foram adicionadas ao repositório.</li>
+        <li>Commits foram realizados e o projeto foi enviado ao GitHub.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <a class="marca" href="#inicio">StudyFlow</a>
+    <p>Manual técnico do projeto acadêmico StudyFlow.</p>
+    <a href="#inicio">Voltar ao início ↑</a>
+  </footer>
+</body>
+</html>
